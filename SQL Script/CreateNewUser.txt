@@ -1,0 +1,12 @@
+{
+  "name": "Viren",
+  "email": "virendramali1807@gmail.com",
+  "password": "Admin@123",
+  //"role": "Admin" // set role from backend
+}
+
+{
+  "name": "New Staff",
+  "email": "newstaff@gmail.com",
+  "password": "Staff@123"
+}
