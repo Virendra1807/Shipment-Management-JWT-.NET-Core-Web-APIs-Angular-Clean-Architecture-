@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using ShipmentManagement.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,9 @@ namespace Infrastructure.AppDBContext
         {
 
         }
-
         public DbSet<User> Users { get; set; }
+
+        public DbSet<Shipment> Shipments { get; set; }
+
     }
 }
