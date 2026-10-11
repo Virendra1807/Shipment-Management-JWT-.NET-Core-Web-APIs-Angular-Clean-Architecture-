@@ -19,7 +19,6 @@ namespace ShipmentManagement.Application.Interfaces
         Task SaveChangesAsync();
         Task<(SqlParameter[] OutputParameters, DataTable ResultSet, List<string> Messages)?> ExecuteStoredProcedureInTransactionAsync(string storedProcedure, SqlParameter[]? parameters = null);
 
-        void TrimEntityProperties(T entity);
+        //void TrimEntityProperties(T entity);
         }
     }
-}

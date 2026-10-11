@@ -2,9 +2,8 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using ShipmentManagement.Application.Interfaces;
-using System;
+
 using System.Data;
-using System.Linq;
 using System.Linq.Expressions;
 
 namespace ShipmentManagement.Infrastructure.Repositories
@@ -21,10 +20,9 @@ namespace ShipmentManagement.Infrastructure.Repositories
 
         public async Task AddAsync(T entity)
         {
-            TrimEntityProperties(entity);
+            //TrimEntityProperties(entity);
             await _dbset.AddAsync(entity);
         }
-
 
         public async Task<T?> GetAsync(Expression<Func<T, bool>> predicateFilters, params Expression<Func<T, bool>>[] predicateInclude)
         {
@@ -33,13 +31,13 @@ namespace ShipmentManagement.Infrastructure.Repositories
             var sql = query.ToQueryString();
             query = predicateInclude.Aggregate(query, (current, include) => current.Include(include));
             var entity = await query.FirstOrDefaultAsync();
-            if (entity != null) TrimEntityProperties(entity);
+            //if (entity != null) TrimEntityProperties(entity);
             return entity;
 
         }
         public void Update(T entity)
         {
-            TrimEntityProperties(entity);
+            //TrimEntityProperties(entity);
             _dbset.Attach(entity);
             _dbContext.Entry(entity).State = EntityState.Modified;
         }
@@ -135,22 +133,22 @@ namespace ShipmentManagement.Infrastructure.Repositories
         }
 
 
-        private void TrimEntityProperties(T entity)
-        {
-            if (entity == null) return;
+        //void IGenericRepository<T>.TrimEntityProperties(T entity)
+        //{
+        //    if (entity == null) return;
 
-            var stringProperties = typeof(T).GetProperties()
-                                             .Where(p => p.PropertyType == typeof(string) && p.CanRead && p.CanWrite);
+        //    var stringProperties = typeof(T).GetProperties()
+        //                                     .Where(p => p.PropertyType == typeof(string) && p.CanRead && p.CanWrite);
 
-            foreach (var property in stringProperties)
-            {
-                var currentValue = property.GetValue(entity) as string;
-                if (!string.IsNullOrEmpty(currentValue))
-                {
-                    var trimmedValue = currentValue.Trim();
-                    property.SetValue(entity, trimmedValue);
-                }
-            }
-        }
+        //    foreach (var property in stringProperties)
+        //    {
+        //        var currentValue = property.GetValue(entity) as string;
+        //        if (!string.IsNullOrEmpty(currentValue))
+        //        {
+        //            var trimmedValue = currentValue.Trim();
+        //            property.SetValue(entity, trimmedValue);
+        //        }
+        //    }
+        //}
     }
 }
